@@ -1,0 +1,27 @@
+<h1>Listing markers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @markers.each do |marker| %>
+      <tr>
+        <td><%= marker.number %></td>
+        <td><%= marker.title %></td>
+        <td><%= link_to 'Show', marker %></td>
+        <td><%= link_to 'Edit', edit_marker_path(marker) %></td>
+        <td><%= link_to 'Destroy', marker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marker', new_marker_path %>
