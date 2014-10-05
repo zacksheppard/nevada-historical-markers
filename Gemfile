@@ -27,6 +27,7 @@ gem 'spring',        group: :development
 gem 'nokogiri'
 gem 'geocoder'
 gem 'pry'
+gem 'awesome_print'
 
 group :test, :development do
   gem 'sqlite3'
