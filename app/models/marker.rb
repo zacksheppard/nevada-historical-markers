@@ -28,11 +28,10 @@ class Marker < ActiveRecord::Base
 
       m.number = doc.css('.item-page p')[0].css('strong').inner_html.to_s.gsub!(/\s/, '')
 
-      m.location = doc.css('.item-page p')[1].children[2]
+      m.location = doc.css('.item-page p')[1].children[2].to_s
 
       m.description = ""
       doc.css('.item-page p')[7..-1].each do |line|
-      binding.pry
         m.description += "#{line.inner_html}\n"
       end
 
