@@ -17,6 +17,8 @@ class Marker < ActiveRecord::Base
       minden = Marker.find_by_url("http://nvshpo.org/administrator/index.php/component/content/?sectionid=-1&task=edit&cid[]=210")
       minden.url = "http://nvshpo.org/index.php/component/content/?view=article&id=209&Itemid=9"
       minden.save
+      sppr = Marker.find_by_url("http://nvshpo.org/index.php/component/content/?view=article&id=370&Itemid=9")
+      sppr.delete
 
   end
 
