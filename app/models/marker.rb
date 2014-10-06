@@ -45,6 +45,17 @@ class Marker < ActiveRecord::Base
   def self.get_lat_lon
     url = "http://www.oiccam.com/reno/historical_markers/nvmarkers/number.htm"
     doc = Nokogiri::HTML(open(url))
+    doc.css('tr')[1..-1].each do |row|
+      if row.css('td')[0].css('a').text.include?('NV')
+        number = row.css('td')[0].css('a').text
+        number.gsub!(/(V00|V0|[^0123456789])/, '')
+        marker = Marker.find_or_create_by(number: number)
+        # This accesses the lat lon but i need to get it in the right format
+        marker.latitude = row.css('td')[3].inner_html
+        marker.longitude = row.css('td')[4].inner_html
+        marker.save
+      end
+    end
   end
 
 end
