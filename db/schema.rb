@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20141004203353) do
   create_table "markers", force: true do |t|
     t.integer  "number"
     t.string   "title"
-    t.string   "description"
-    t.string   "county"
+    t.text     "description"
+    t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "created_at"

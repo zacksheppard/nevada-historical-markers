@@ -3,8 +3,8 @@ class CreateMarkers < ActiveRecord::Migration
     create_table :markers do |t|
       t.integer :number
       t.string :title
-      t.string :description
-      t.string :county
+      t.text :description
+      t.string :location
       t.float :latitude
       t.float :longitude
 
