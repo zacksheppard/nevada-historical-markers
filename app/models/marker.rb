@@ -58,4 +58,16 @@ class Marker < ActiveRecord::Base
     end
   end
 
+  # For this all Lat will be +, all Lon will be -
+  # sample: N39° 09' 12.9" W119° 48' 54.0"
+  def self.convert_geo(coordinates)
+    ifcoordinates.include?('W') || coordinates.include?('S') ? pos_or_neg = 1 : pos_or_neg = -1
+    new_converted = 0
+    binding.pry
+    coordinates.gsub!(/"/, "''")
+    coordinates.gsub(/(\d+)° (\d+)' (\d+)''/) do
+      $1.to_f + $2.to_f/60 + $3.to_f/3600
+    end
+  end
+
 end
