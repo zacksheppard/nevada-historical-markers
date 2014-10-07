@@ -50,24 +50,22 @@ class Marker < ActiveRecord::Base
         number = row.css('td')[0].css('a').text
         number.gsub!(/(V00|V0|[^0123456789])/, '')
         marker = Marker.find_or_create_by(number: number)
-        # This accesses the lat lon but i need to get it in the right format
-        marker.latitude = row.css('td')[3].inner_html
-        marker.longitude = row.css('td')[4].inner_html
+        marker.latitude = marker.convert_geo(row.css('td')[3].inner_html)
+        marker.longitude = marker.convert_geo(row.css('td')[4].inner_html)
         marker.save
       end
     end
   end
 
-  # For this all Lat will be +, all Lon will be -
-  # sample: N39° 09' 12.9" W119° 48' 54.0"
-  def self.convert_geo(coordinates)
-    ifcoordinates.include?('W') || coordinates.include?('S') ? pos_or_neg = 1 : pos_or_neg = -1
-    new_converted = 0
-    binding.pry
-    coordinates.gsub!(/"/, "''")
-    coordinates.gsub(/(\d+)° (\d+)' (\d+)''/) do
-      $1.to_f + $2.to_f/60 + $3.to_f/3600
-    end
+  # N39° 09' 12.9''  W119° 48' 54.0''
+  # => Should be 39.153583, -119.815
+  # Marker.convert_geo("N39° 09' 12.9''")
+  def convert_geo(dms)
+    dms_array = dms.scan(/[0-9.]+/)
+    coordinate = dms_array[0].to_f + dms_array[1].to_f/60.0 + dms_array[2].to_f/3600.0
+    coordinate = coordinate * -1 if dms.include?('W') || dms.include?('S')
+    coordinate
   end
+  # w/o the .0 it was => 39.18733333333333, -119.70636111111111
 
 end
