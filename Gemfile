@@ -28,6 +28,7 @@ gem 'nokogiri'
 gem 'geocoder'
 gem 'pry'
 gem 'awesome_print'
+gem 'gmaps4rails'
 
 group :test, :development do
   gem 'sqlite3'

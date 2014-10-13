@@ -13,5 +13,10 @@
   <%= @marker.description %>
 </p>
 
+<p>
+  <strong>Description:</strong>
+  <%= "#{@marker.description}".gsub(/\n/, '<br/>').html_safe %>
+</p>
+
 <%= link_to 'Edit', edit_marker_path(@marker) %> |
 <%= link_to 'Back', markers_path %>
