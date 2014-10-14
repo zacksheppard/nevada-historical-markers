@@ -1,28 +1,16 @@
-## README
+## Nevada State Historical Maker map
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is a listing and map of the Historical Markers in the State of Nevada. In addition to the markers themselves, information is used from the [State Historic Preservation Office]() and [this wonderful page of markers](http://www.oiccam.com/reno/historical_markers/nvmarkers/number.htm) listed with Lat Lon.
 
-Things you may want to cover:
+### Configuration:
+* Ruby 2.1.2, Rails 4.1.4
+* For the map I'm first using CartoDB because I'd like to try it out. After that is done I'll also create a map myself using JavaScript and Google Maps.
+* Because it is more useful on mobile I'll optimize for both desktop and mobile views and add location awareness.
 
-* Ruby version
+### Why?
+When you travel around the state of Nevada you see many historical markers like [this one](). I've heard many Nevadans say they'd love to know more about these, where they are, what they mean and how many are really around. They are always fun to stumble upon especially when you are out in what seems to be the middle of nowhere in Nevada. They very often are a marker of history that left no other traces behind. 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+I've heard many Nevadans say that they wish they knew more about them or knew where more of them are and that is what this project is about. 
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+

@@ -97,7 +97,7 @@ class Marker < ActiveRecord::Base
         # puts "==========================================="
         # puts "NUMBER #{marker.number}"
         # puts marker.description
-        # marker.save
+        marker.save
       end
     end
   end
