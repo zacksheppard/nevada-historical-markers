@@ -77,23 +77,24 @@ class Marker < ActiveRecord::Base
     coordinate
   end
 
-  # The HTML usage is very inconsistent so this method, saves the <strong>
-  # tag that we will need, strips all other tags, restores <strong>,
+  # The HTML usage is very inconsistent at the source page.
+  # This method, saves the <strong> tag that we will need, 
+  # strips all other tags, restores <strong>,
   # then puts <p> tags at the beginning and end of lines.
   def self.clean_data
     Marker.all.each do |marker|
-      if marker.description != nil
-        marker.description.gsub!(/<strong[^>]*>/, "111strong111")
-        marker.description.gsub!(/<\/strong[^>]*>/, "111/strong111")
-        marker.description.gsub!(/<\/?[^>]*>/, "")
-        marker.description.gsub!(/^/, "<p>")
-        marker.description.gsub!(/$/, "</p>")
-        marker.description.gsub!(/111strong111/, "<strong>")
-        marker.description.gsub!(/111\/strong111/, "</strong>")
-        marker.description.gsub!(/<strong>\s*<\/strong>/, '')
-        marker.description.gsub!(/<p>\S*<\/p>/, '')
-        marker.description.gsub!(/[\n]+/, "\n")
-        marker.description.gsub!(/^<\/p>$/, "")
+      unless marker.description == nil
+        marker.description = marker.description.gsub(/<strong[^>]*>/, "111strong111")
+        marker.description = marker.description.gsub(/<\/strong[^>]*>/, "111/strong111")
+        marker.description = marker.description.gsub(/<\/?[^>]*>/, "")
+        marker.description = marker.description.gsub(/^/, "<p>")
+        marker.description = marker.description.gsub(/$/, "</p>")
+        marker.description = marker.description.gsub(/111strong111/, "<strong>")
+        marker.description = marker.description.gsub(/111\/strong111/, "</strong>")
+        marker.description = marker.description.gsub(/<strong>\s*<\/strong>/, '')
+        marker.description = marker.description.gsub(/<p>\S*<\/p>/, '')
+        marker.description = marker.description.gsub(/[\n]+/, "\n")
+        marker.description = marker.description.gsub(/^<\/p>$/, "")
         # puts "==========================================="
         # puts "NUMBER #{marker.number}"
         # puts marker.description
