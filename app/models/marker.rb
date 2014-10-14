@@ -1,6 +1,15 @@
 require 'open-uri'
 class Marker < ActiveRecord::Base
 
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |marker|
+        csv << marker.attributes.values_at(*column_names)
+      end
+    end
+  end
+
   def self.get_official_urls
     url = "http://nvshpo.org/home-topmenu-17-17/historical-markers/list-of-markers.html"
     doc = Nokogiri::HTML(open(url))
@@ -68,4 +77,28 @@ class Marker < ActiveRecord::Base
     coordinate
   end
 
+  # The HTML usage is very inconsistent so this method, saves the <strong>
+  # tag that we will need, strips all other tags, restores <strong>,
+  # then puts <p> tags at the beginning and end of lines.
+  def self.clean_data
+    Marker.all.each do |marker|
+      if marker.description != nil
+        marker.description.gsub!(/<strong[^>]*>/, "111strong111")
+        marker.description.gsub!(/<\/strong[^>]*>/, "111/strong111")
+        marker.description.gsub!(/<\/?[^>]*>/, "")
+        marker.description.gsub!(/^/, "<p>")
+        marker.description.gsub!(/$/, "</p>")
+        marker.description.gsub!(/111strong111/, "<strong>")
+        marker.description.gsub!(/111\/strong111/, "</strong>")
+        marker.description.gsub!(/<strong>\s*<\/strong>/, '')
+        marker.description.gsub!(/<p>\S*<\/p>/, '')
+        marker.description.gsub!(/[\n]+/, "\n")
+        marker.description.gsub!(/^<\/p>$/, "")
+        # puts "==========================================="
+        # puts "NUMBER #{marker.number}"
+        # puts marker.description
+        # marker.save
+      end
+    end
+  end
 end

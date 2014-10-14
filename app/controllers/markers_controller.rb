@@ -5,6 +5,10 @@ class MarkersController < ApplicationController
   # GET /markers.json
   def index
     @markers = Marker.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @markers.to_csv }
+    end
   end
 
   # GET /markers/1
