@@ -30,6 +30,9 @@ gem 'pry'
 gem 'awesome_print'
 gem 'gmaps4rails'
 
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+
 group :test, :development do
   gem 'sqlite3'
 end
