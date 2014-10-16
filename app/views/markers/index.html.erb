@@ -1,23 +1,16 @@
 <h1>Marker list</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Number</th>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="bootcards-list">
+  <div class="panel panel-default">
+    <div class="list-group">
     <% @markers.each do |marker| %>
-      <tr>
-        <td><%= marker.number %></td>
-        <td><%= marker.title %></td>
-      </tr>
+      <a class="list-group-item" href="/markers/<%= marker.id %>">
+        <h4 class="list-group-item-heading"><%= marker.number %> <%= marker.title %></h4>
+      </a>
     <% end %>
-  </tbody>
-</table>
+    </div>
+  </div>
+</div>
 
 <br>
 
