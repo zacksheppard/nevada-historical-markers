@@ -11,9 +11,9 @@ class Marker < ActiveRecord::Base
   end
 
   def self.get_official_urls
-    url = "http://nvshpo.org/home-topmenu-17-17/historical-markers/list-of-markers.html"
+    url = "http://shpo.nv.gov/historical-markers/list/"
     doc = Nokogiri::HTML(open(url))
-    marker_list = doc.css('ul')[10]
+    marker_list = doc.css('.leading-0 ul')
     marker_list.css('li').each do |item|
       link = item.css('a')[0]['href']
       full_url = "http://nvshpo.org" + link
@@ -21,20 +21,13 @@ class Marker < ActiveRecord::Base
       marker.url = full_url
       marker.save
     end
-
-      # Correct for bad data
-      minden = Marker.find_by_url("http://nvshpo.org/administrator/index.php/component/content/?sectionid=-1&task=edit&cid[]=210")
-      minden.url = "http://nvshpo.org/index.php/component/content/?view=article&id=209&Itemid=9"
-      minden.save
-      sppr = Marker.find_by_url("http://nvshpo.org/index.php/component/content/?view=article&id=370&Itemid=9")
-      sppr.delete
-
   end
 
   def self.get_info
     Marker.all.each do |m|
       url = m.url
       doc = Nokogiri::HTML(open(url))
+      binding.pry
       m.title = doc.css('.item-page').css('h2').inner_html.gsub!(/\n/, "").gsub!(/\t/, "")
 
       m.number = doc.css('.item-page p')[0].css('strong').inner_html.to_s.gsub!(/\s/, '')
