@@ -5,9 +5,29 @@ class MarkersController < ApplicationController
   # GET /markers.json
   def index
     @markers = Marker.all
+    @geojson = []
+    
+    @markers.each do |m|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [m.latitude, m.longitude]
+        },
+        properties: {
+          name: m.title,
+          number: m.number,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
+      }
+    end
+
     respond_to do |format|
       format.html
       format.csv { send_data @markers.to_csv }
+      format.json { render json: @geojson }
     end
   end
 
