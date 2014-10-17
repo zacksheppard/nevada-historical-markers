@@ -43,7 +43,6 @@ class Marker < ActiveRecord::Base
       # doc.css('.MsoNormal').inner_html
       m.description = ""
       m.office_marker_info = ""
-      binding.pry
       doc.css('p.StyleLinespacing15lines, p.MsoNormal').each do |line|
 
         # if it is a blank line do nothing
@@ -90,32 +89,10 @@ class Marker < ActiveRecord::Base
     dms_array = dms.scan(/[0-9.]+/)
     coordinate = dms_array[0].to_f + dms_array[1].to_f/60.0 + dms_array[2].to_f/3600.0
     coordinate = coordinate * -1 if dms.include?('W') || dms.include?('S')
-    coordinate
+    coordinate.round(7)
   end
 
-  # The HTML usage is very inconsistent at the source page.
-  # This method, saves the <strong> tag that we will need, 
-  # strips all other tags, restores <strong>,
-  # then puts <p> tags at the beginning and end of lines.
   def self.clean_data
-    Marker.all.each do |marker|
-      unless marker.description == nil
-        marker.description = marker.description.gsub(/<strong[^>]*>/, "111strong111")
-        marker.description = marker.description.gsub(/<\/strong[^>]*>/, "111/strong111")
-        marker.description = marker.description.gsub(/<\/?[^>]*>/, "")
-        marker.description = marker.description.gsub(/^/, "<p>")
-        marker.description = marker.description.gsub(/$/, "</p>")
-        marker.description = marker.description.gsub(/111strong111/, "<strong>")
-        marker.description = marker.description.gsub(/111\/strong111/, "</strong>")
-        marker.description = marker.description.gsub(/<strong>\s*<\/strong>/, '')
-        marker.description = marker.description.gsub(/<p>\S*<\/p>/, '')
-        marker.description = marker.description.gsub(/[\n]+/, "\n")
-        marker.description = marker.description.gsub(/^<\/p>$/, "")
-        # puts "==========================================="
-        # puts "NUMBER #{marker.number}"
-        # puts marker.description
-        marker.save
-      end
-    end
+    # Write a method to remove the UPCASE text in descriptions left over from scraping.
   end
 end
