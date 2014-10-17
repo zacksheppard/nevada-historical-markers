@@ -10,6 +10,29 @@ class Marker < ActiveRecord::Base
     end
   end
 
+  # Creating to try out the Github GeoJSON display feature
+  def self.to_json
+    @markers = Marker.all
+    @geojson = []
+    
+    @markers.each do |m|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [m.latitude, m.longitude]
+        },
+        properties: {
+          name: m.title,
+          number: m.number,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
+      }
+    end
+  end
+
   def self.get_official_urls
     url = "http://shpo.nv.gov/historical-markers/list/"
     doc = Nokogiri::HTML(open(url))
@@ -89,7 +112,7 @@ class Marker < ActiveRecord::Base
     dms_array = dms.scan(/[0-9.]+/)
     coordinate = dms_array[0].to_f + dms_array[1].to_f/60.0 + dms_array[2].to_f/3600.0
     coordinate = coordinate * -1 if dms.include?('W') || dms.include?('S')
-    coordinate.round(7)
+    coordinate
   end
 
   def self.clean_data
