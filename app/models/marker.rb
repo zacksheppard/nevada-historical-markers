@@ -18,26 +18,32 @@ class Marker < ActiveRecord::Base
       link = item.css('a')[0]['href']
       full_url = "http://nvshpo.org" + link
       marker = Marker.new
-      marker.url = full_url
+      marker.official_url = full_url
       marker.save
     end
   end
 
   def self.get_info
     Marker.all.each do |m|
-      url = m.url
+      url = m.official_url
       doc = Nokogiri::HTML(open(url))
-      binding.pry
-      m.title = doc.css('.item-page').css('h2').inner_html.gsub!(/\n/, "").gsub!(/\t/, "")
+      m.title = doc.css('h2').inner_html
 
-      m.number = doc.css('.item-page p')[0].css('strong').inner_html.to_s.gsub!(/\s/, '')
+      m.number = doc.css('strong')[1].inner_html.to_s.gsub!(/\s/, '').to_i
 
-      m.location = doc.css('.item-page p')[1].children[2].to_s
+      m.location_info = doc.css('.leading-0').children[6].children[2].to_s.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
+      m.location_info += ". "
+      m.location_info += doc.css('.leading-0').children[6].children[4].to_s.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
+      m.location_info += "."
 
+      # doc.css('.MsoNormal').inner_html
       m.description = ""
-      doc.css('.item-page p')[7..-1].each do |line|
-        m.description += "#{line.inner_html}\n"
+      doc.css('.MsoNormal').each do |line|
+        binding.pry
+        line.inner_html
       end
+      # doc.css('.item-page p')[7..-1].each do |line|
+      #   m.description += "#{line.inner_html}\n"
 
       m.save
 
