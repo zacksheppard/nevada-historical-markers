@@ -27,19 +27,24 @@ class Marker < ActiveRecord::Base
     Marker.all.each do |m|
       url = m.official_url
       doc = Nokogiri::HTML(open(url))
+
       m.title = doc.css('h2').inner_html
 
-      m.number = doc.css('strong')[1].inner_html.to_s.gsub!(/\s/, '').to_i
+      m.number = m.official_url.gsub(/\D/, "").to_i
 
-      m.location_info = doc.css('.leading-0').children[6].children[2].to_s.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
-      m.location_info += ". "
-      m.location_info += doc.css('.leading-0').children[6].children[4].to_s.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
-      m.location_info += "."
+      m.location_info = ""
+      doc.css('.leading-0 p').each do |line| 
+        if line.text.include?('Location')
+          m.location_info = "#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}."
+          m.location_info = m.location_info.gsub("Location:", "").gsub(/[[:space:]]{2}/, ". ")
+        end
+      end
 
       # doc.css('.MsoNormal').inner_html
       m.description = ""
       m.office_marker_info = ""
-      doc.css('.MsoNormal').each do |line|
+      binding.pry
+      doc.css('p.StyleLinespacing15lines, p.MsoNormal').each do |line|
 
         # if it is a blank line do nothing
         if line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '') == ""
@@ -49,10 +54,10 @@ class Marker < ActiveRecord::Base
         elsif line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '') == m.title.upcase
           next
 
-        # elsif it is all uppercase add to the office info
-        elsif line.text == line.text.upcase || line.text.include?('No. ')
+        # elsif it has 'No. ' or distinct words in upcase add to office info
+        elsif line.text =~ /No\.\s|No\.\s|HISTORIC|MUSEUM|SOCIETY|CHAMBER/
           m.office_marker_info += "<p>#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}</p>"
-          
+
         # if it passes the above, add to description
         else 
           m.description += "<p>#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}</p>"
