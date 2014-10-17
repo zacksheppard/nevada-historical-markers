@@ -55,7 +55,7 @@ class Marker < ActiveRecord::Base
           next
 
         # elsif it has 'No. ' or distinct words in upcase add to office info
-        elsif line.text =~ /No\.\s|No\.\s|HISTORIC|MUSEUM|SOCIETY|CHAMBER/
+        elsif line.text =~ /No\.\s|No\.\s|HISTORIC|MUSEUM|SOCIETY|CHAMBER|STATE|OFFICE|INTERNATIONAL/
           m.office_marker_info += "<p>#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}</p>"
 
         # if it passes the above, add to description
