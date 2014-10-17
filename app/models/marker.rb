@@ -38,15 +38,27 @@ class Marker < ActiveRecord::Base
 
       # doc.css('.MsoNormal').inner_html
       m.description = ""
+      m.office_marker_info = ""
       doc.css('.MsoNormal').each do |line|
-        binding.pry
-        line.inner_html
+
+        # if it is a blank line do nothing
+        if line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '') == ""
+          next
+
+        # elsif it matches the title, do nothing
+        elsif line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '') == m.title.upcase
+          next
+
+        # elsif it is all uppercase add to the office info
+        elsif line.text == line.text.upcase || line.text.include?('No. ')
+          m.office_marker_info += "<p>#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}</p>"
+          
+        # if it passes the above, add to description
+        else 
+          m.description += "<p>#{line.text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')}</p>"
+        end
       end
-      # doc.css('.item-page p')[7..-1].each do |line|
-      #   m.description += "#{line.inner_html}\n"
-
       m.save
-
     end
   end
 
