@@ -8,20 +8,22 @@ class MarkersController < ApplicationController
     @geojson = []
     
     @markers.each do |m|
-      @geojson << {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [m.latitude, m.longitude]
-        },
-        properties: {
-          name: m.title,
-          number: m.number,
-          :'marker-color' => '#00607d',
-          :'marker-symbol' => 'circle',
-          :'marker-size' => 'medium'
+      if m.latitude 
+        @geojson << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [m.longitude, m.latitude]
+          },
+          properties: {
+            name: m.title,
+            number: m.number,
+            :'marker-color' => '#00607d',
+            :'marker-symbol' => 'circle',
+            :'marker-size' => 'medium'
+          }
         }
-      }
+      end
     end
 
     respond_to do |format|
