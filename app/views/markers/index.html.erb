@@ -5,13 +5,9 @@
     <div class="list-group">
     <% @markers.each do |marker| %>
       <a class="list-group-item" href="/markers/<%= marker.id %>">
-        <h4 class="list-group-item-heading"><%= marker.number %> <%= marker.title %></h4>
+        <h4 class="list-group-item-heading"><%= marker.number %> - <%= marker.title %></h4>
       </a>
     <% end %>
     </div>
   </div>
 </div>
-
-<br>
-
-<%= link_to "CSV", markers_path(format: "csv") %>

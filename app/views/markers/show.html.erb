@@ -1,19 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @marker.number %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @marker.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= "#{@marker.description}".html_safe %>
-</p>
-
-<%= link_to 'Edit', edit_marker_path(@marker) %> |
-<%= link_to 'Back', markers_path %>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <h2 class="panel-title pull-left"><%= @marker.title %></h2>
+    </div>
+    <div class="panel-body">
+      <p><%= "#{@marker.description}".html_safe %></p>
+    </div>
+    <div class="panel-footer">
+      <small><%= "Marker No. #{@marker.number}" %></small>
+    </div>
+  </div>
+</div>
