@@ -16,7 +16,24 @@
           return map.featureLayer.setGeoJSON(geojson);
         }
       });
+
+      L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
+      var map = L.mapbox.map('map', 'zackshp.k0bb3ic6')
+          .setView([39.606810, -116.929677], 8);
+
+      map.featureLayer.on('layeradd', function(e) {
+        var marker, popupContent, properties;
+        marker = e.layer;
+        properties = marker.feature.properties;
+        popupContent = '<div class="popup">' + '<p>No. ' + properties.number + '</p>' + '<h3><a href="/markers/' + properties.id + '">' + properties.name + '</a></h3>' + '</div>';
+        return marker.bindPopup(popupContent, {
+          closeButton: false,
+          minWidth: 300
+        });
+      });
     });
+
+
     
   </script>
 

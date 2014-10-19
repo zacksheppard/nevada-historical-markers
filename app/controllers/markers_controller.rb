@@ -18,6 +18,7 @@ class MarkersController < ApplicationController
           properties: {
             name: m.title,
             number: m.number,
+            id: m.id,
             :'marker-color' => '#00607d',
             :'marker-symbol' => 'circle',
             :'marker-size' => 'medium'
