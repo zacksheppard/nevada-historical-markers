@@ -10,7 +10,6 @@ class Marker < ActiveRecord::Base
     end
   end
 
-  # Creating to try out the Github GeoJSON display feature
   def self.to_json
     @markers = Marker.all
     @geojson = []
@@ -23,8 +22,10 @@ class Marker < ActiveRecord::Base
           coordinates: [m.latitude, m.longitude]
         },
         properties: {
+          id: m.id,
           name: m.title,
           number: m.number,
+          description: m.description,
           :'marker-color' => '#00607d',
           :'marker-symbol' => 'circle',
           :'marker-size' => 'medium'
@@ -108,6 +109,7 @@ class Marker < ActiveRecord::Base
   # => Should be 39.153583, -119.815
   # Marker.convert_geo("N39° 09' 12.9''")
   # w/o the .0 it was => 39.18733333333333, -119.70636111111111
+
   def convert_geo(dms)
     dms_array = dms.scan(/[0-9.]+/)
     coordinate = dms_array[0].to_f + dms_array[1].to_f/60.0 + dms_array[2].to_f/3600.0
@@ -118,4 +120,14 @@ class Marker < ActiveRecord::Base
   def self.clean_data
     # Write a method to remove the UPCASE text in descriptions left over from scraping.
   end
+
+  def short_desc
+    if description.length > 140
+      "#{description[0..140]}<a href='/markers/#{id}'>...more</a>"
+    else
+      description
+    end
+  end
+
+
 end

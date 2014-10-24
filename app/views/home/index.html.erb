@@ -1,4 +1,6 @@
-<div id='map' style=" border: 1px solid;padding:3px;width:100%; height:700px;"></div>
+<div class="row fill">
+  <div class="col-md-12 " id='map'></div>
+</div>
 <script>
     $(document).ready(function() {
       $.ajax({
@@ -19,10 +21,10 @@
         var marker, popupContent, properties;
         marker = e.layer;
         properties = marker.feature.properties;
-        popupContent = '<div class="popup">' + '<h3><a href="/markers/' + properties.id + '" target="marker">' + properties.name + '</a>' + '</h3>' + '<p>Marker # ' + properties.number + '</p>' + '</div>';
+        popupContent = '<div class="popup"><h3><a href="/markers/' + properties.id + '" target="marker">' + properties.name + '</a></h3><p class="popup-num">Marker No. ' + properties.number + '</p><p>' + properties.description + '</p></div>';
         return marker.bindPopup(popupContent, {
           closeButton: false,
-          minWidth: 200
+          minWidth: 300
         });
       });
     });

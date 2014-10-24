@@ -16,9 +16,10 @@ class MarkersController < ApplicationController
             coordinates: [m.longitude, m.latitude]
           },
           properties: {
+            id: m.id,
             name: m.title,
             number: m.number,
-            id: m.id,
+            description: m.short_desc,
             :'marker-color' => '#00607d',
             :'marker-symbol' => 'circle',
             :'marker-size' => 'medium'
