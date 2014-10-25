@@ -3,6 +3,8 @@
 /*
 *= require bootcards
 */
+
+// To make the map full page
 #map {
   border: 1px solid;
   padding:3px;
@@ -16,12 +18,16 @@ html, body {
     min-height: 100%;
 }
 
+body {
+  overflow:hidden;
+}
+
 .fill { 
     min-height: 100%;
     height: 100%;
 }
 
-
+// Map popup styles
 .leaflet-popup-content-wrapper {
   background:#2c3e50;
   color:#fff;
