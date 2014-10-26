@@ -2,22 +2,12 @@
   <div class="col-md-12 " id='map'></div>
 </div>
 <script>
-    $(document).ready(function() {
-      $.ajax({
-        dataType: 'text',
-        url: '/markers.json',
-        success: function(data) {
-          var geojson;
-          geojson = $.parseJSON(data);
-          return map.featureLayer.setGeoJSON(geojson);
-        }
-      });
 
       L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
-      var map = L.mapbox.map('map', 'zackshp.k0bb3ic6')
-          .setView([39.606810, -116.929677], 7);
+      var map = L.mapbox.map('map', 'zackshp.k0bb3ic6').setView([39.606810, -116.929677], 7);
+      var myLayer = L.mapbox.featureLayer().addTo(map);
 
-      map.featureLayer.on('layeradd', function(e) {
+      myLayer.on('layeradd', function(e) {
         var marker, popupContent, properties;
         marker = e.layer;
         properties = marker.feature.properties;
@@ -27,5 +17,14 @@
           minWidth: 300
         });
       });
-    });
+
+      $.ajax({
+        dataType: 'text',
+        url: '/markers.json',
+        success: function(data) {
+          var geojson;
+          geojson = $.parseJSON(data);
+          return myLayer.setGeoJSON(geojson);
+        }
+      });
 </script>
