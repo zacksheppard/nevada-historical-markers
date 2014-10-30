@@ -71,6 +71,7 @@ html, body {
 }
 
 .panel-map {
+  z-index: 1000;
   min-height: 300px;
   width: 85%;
 }
