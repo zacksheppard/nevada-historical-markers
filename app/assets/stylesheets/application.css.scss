@@ -18,9 +18,9 @@ html, body {
     min-height: 100%;
 }
 
-body {
-  overflow:hidden;
-}
+// body {
+  // overflow:hidden;
+// }
 
 .fill { 
     min-height: 100%;
@@ -58,4 +58,19 @@ body {
 
 .navbar {
   margin-bottom: 0px;
+}
+
+.popup h3 a {
+  color: #ddd;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+}
+
+.popup-num {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+.panel-map {
+  min-height: 300px;
+  width: 85%;
 }

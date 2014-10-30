@@ -121,6 +121,30 @@ class Marker < ActiveRecord::Base
     # Write a method to remove the UPCASE text in descriptions left over from scraping.
   end
 
+  def to_json
+    # @markers = Marker.all
+    @geojson = []
+    
+    # @markers.each do |m|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [self.latitude, self.longitude]
+        },
+        properties: {
+          id: self.id,
+          name: self.title,
+          number: self.number,
+          description: self.description,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
+      }
+    # end
+  end
+
   def short_desc
     if description.length > 140
       "#{description[0..140]}<a href='/markers/#{id}'>...more</a>"

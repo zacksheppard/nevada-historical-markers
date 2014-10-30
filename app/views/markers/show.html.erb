@@ -3,7 +3,7 @@
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading clearfix">
-      <h2 class="panel-title pull-left"><%= @marker.title %></h2>
+      <h2 class="pull-left"><%= @marker.title %></h2>
     </div>
     <div class="panel-body">
       <p><%= "#{@marker.description}".html_safe %></p>
@@ -12,4 +12,35 @@
       <small><%= "Marker No. #{@marker.number}" %></small>
     </div>
   </div>
+    <div class="col-md-6 panel-map" id="map">
+    </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
+  var map = L.mapbox.map('map', 'zackshp.k0bb3ic6').setView([39.606810, -116.929677], 7);
+  var myLayer = L.mapbox.featureLayer().addTo(map);
+
+  myLayer.on('layeradd', function(e) {
+    var marker, popupContent, properties;
+    marker = e.layer;
+    properties = marker.feature.properties;
+    popupContent = '<div class="popup"><h3><a href="/markers/' + properties.id + '" target="marker">' + properties.name + '</a></h3><p>' + properties.description + '</p><p class="popup-num">Marker No. ' + properties.number + '</p></div>';
+    return marker.bindPopup(popupContent, {
+      closeButton: false,
+      minWidth: 300
+    });
+  });
+
+  $.ajax({
+    dataType: 'text',
+    url: '/markers.json',
+    success: function(data) {
+      var geojson;
+      geojson = $.parseJSON(data);
+      return myLayer.setGeoJSON(geojson);
+    }
+  });
+});
+</script>
