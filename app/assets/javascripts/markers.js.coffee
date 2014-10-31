@@ -2,3 +2,4 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$('#MarkerModal').html("<%= escape_javascript(render :partial => 'popup') %>");

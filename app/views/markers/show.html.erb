@@ -44,3 +44,11 @@ $(document).ready(function() {
   });
 });
 </script>
+
+<div class="row text-center">
+  <h3>The Basic Modal</h3>
+  <a href="20" class="btn btn-lg btn-success"  data-mid="19" data-toggle="modal"  data-target="#MarkerModal" data-remote="true" >Click to open Modal</a>
+  <%= link_to "MORE", "20", "data-toggle" => "modal", 'data-target' => '#MarkerModal', 'data-remote' => "true" %>
+</div>
+
+<%= render 'markers/popup' %>

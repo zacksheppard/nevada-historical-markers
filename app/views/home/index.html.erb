@@ -11,7 +11,7 @@ $(document).ready(function() {
     var marker, popupContent, properties;
     marker = e.layer;
     properties = marker.feature.properties;
-    popupContent = '<div class="popup"><h3><a href="/markers/' + properties.id + '" target="marker">' + properties.name + '</a></h3><p>' + properties.description + '</p><p class="popup-num">Marker No. ' + properties.number + '</p></div>';
+    popupContent = '<div class="popup"><h3><a href="20" data-toggle="modal"  data-target="#MarkerModal" data-remote="true" >MORE</a>' + properties.name + '</a></h3><p>' + properties.description + '</p><a href="' + properties.id + '" data-toggle="modal"  data-target="#MarkerModal" data-remote="true" >...more</a><p class="popup-num">Marker No. ' + properties.number + '</p></div>';
     return marker.bindPopup(popupContent, {
       closeButton: false,
       minWidth: 300
@@ -29,3 +29,5 @@ $(document).ready(function() {
   });
 });
 </script>
+
+<%= render 'markers/popup' %>

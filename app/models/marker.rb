@@ -143,7 +143,7 @@ class Marker < ActiveRecord::Base
 
   def short_desc
     if description.length > 140
-      "#{description[0..140]}<a href='/markers/#{id}'>...more</a>"
+      "#{description[0..140]}"
     else
       description
     end

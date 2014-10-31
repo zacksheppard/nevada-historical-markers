@@ -61,6 +61,7 @@ class MarkersController < ApplicationController
       respond_to do |format|
       format.html
       format.json { render json: @geojson }
+      format.js
     end
   end
 
