@@ -56,6 +56,7 @@ namespace :scrape do
         end
       end
       m.save
+      puts "Marker No. #{marker.number} saved. "
     end
   end
 
@@ -73,6 +74,7 @@ namespace :scrape do
         marker.latitude = marker.convert_geo(row.css('td')[3].inner_html)
         marker.longitude = marker.convert_geo(row.css('td')[4].inner_html)
         marker.save
+        puts "Marker No. #{marker.number} lat, lon saved as: [#{marker.latitude}, #{marker.longitude}]."
       end
     end
   end
