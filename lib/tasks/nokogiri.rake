@@ -13,7 +13,7 @@ namespace :scrape do
       marker = Marker.new
       marker.official_url = full_url
       marker.save
-      puts "Marker(#{marker.id}) saved #{marker.official_url}."
+      puts "Marker URL saved as: #{marker.official_url}"
     end
     puts "#{Marker.count} marker URL's saved."
   end
@@ -56,7 +56,7 @@ namespace :scrape do
         end
       end
       m.save
-      puts "Marker No. #{marker.number} saved. "
+      puts "Marker No. #{m.number} saved. "
     end
   end
 
@@ -74,7 +74,7 @@ namespace :scrape do
         marker.latitude = marker.convert_geo(row.css('td')[3].inner_html)
         marker.longitude = marker.convert_geo(row.css('td')[4].inner_html)
         marker.save
-        puts "Marker No. #{marker.number} lat, lon saved as: [#{marker.latitude}, #{marker.longitude}]."
+        puts "Marker No. #{marker.number} coordinates saved as: [#{marker.latitude}, #{marker.longitude}]."
       end
     end
   end
