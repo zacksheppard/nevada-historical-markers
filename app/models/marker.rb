@@ -61,7 +61,7 @@ class Marker < ActiveRecord::Base
 
   # dms is geo location shorthand for Degrees Minutes Seconds.
   def convert_geo(dms)
-    dms_array = dms.scan(/[0-9.]+/)
+    dms_array = dms.scan(/[0-9.]+/)  # put dms into an array, numbers only
     coordinate = dms_array[0].to_f + dms_array[1].to_f/60.0 + dms_array[2].to_f/3600.0
     coordinate = coordinate * -1 if dms.include?('W') || dms.include?('S')
     coordinate
