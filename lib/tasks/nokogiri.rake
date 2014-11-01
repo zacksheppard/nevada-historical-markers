@@ -28,7 +28,6 @@ namespace :scrape do
       m.title = doc.css('h2').inner_html
       m.number = m.official_url.gsub(/\D/, "").to_i
 
-      # UNIT OF WORK parse_location_info
       m.location_info = ""
       doc.css('.leading-0 p').each do |line| 
         if line.text.include?('Location')
@@ -37,7 +36,6 @@ namespace :scrape do
         end
       end
 
-      # UNIT OF WORK parse_description
       m.description = ""
       m.office_marker_info = ""
       doc.css('p.StyleLinespacing15lines, p.MsoNormal').each do |line|
@@ -56,7 +54,7 @@ namespace :scrape do
         end
       end
       m.save
-      puts "Marker No. #{m.number} saved. "
+      puts "Marker No. #{m.number} saved."
     end
   end
 

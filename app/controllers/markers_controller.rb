@@ -2,6 +2,7 @@ class MarkersController < ApplicationController
   before_action :set_marker, only: [:show, :edit, :update, :destroy]
 
   # GET /markers
+  # GET /markers.csv
   # GET /markers.json
   def index
     @markers = Marker.all
@@ -27,7 +28,6 @@ class MarkersController < ApplicationController
         }
       end
     end
-
     respond_to do |format|
       format.html
       format.csv { send_data @markers.to_csv }

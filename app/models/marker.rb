@@ -1,4 +1,3 @@
-require 'open-uri'
 class Marker < ActiveRecord::Base
 
   def self.to_csv
