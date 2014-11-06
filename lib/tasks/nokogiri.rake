@@ -77,22 +77,31 @@ namespace :scrape do
     end
   end
 
+  # TO DO
+  # Some markers are saving with blank lat/lon
+  # some are saving with too many decimal places 
   desc "Fetch additional latitude & longitude data"
   task :lat_lon_additional => :environment do
     require 'nokogiri'  
     require 'open-uri' 
     docs = []
+    # Get each page 
     docs << Nokogiri::HTML(open("http://www.nevada-landmarks.com/markerlist.htm"))
     docs << Nokogiri::HTML(open("http://www.nevada-landmarks.com/markerlist2.htm"))
     docs.each do |doc|
+      # Select the table with the marker list
       doc.css('table')[1].css('tr')[1..-1].each do |row|
+        # unassigned markers have no info. 0 is here because blank rows show as 0
         unassigned = [ 0, 226, 260, 268, 241 ]
         num = row.css('td')[0].text.gsub(/[^0-9]/, "").to_i
         unless unassigned.include?(num)
           m = Marker.find_by(number: num)
           m.county = row.css('td')[2].text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
+          # Markers with 'firebrick' color are missing and shouldn't be included
           unless row.css('td')[0].inner_html.include?('firebrick') 
+            # We have to divide the float by 1.0 or the number wont match when saved
             m.latitude = row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '').to_f/1.0
+            # divide by -1.0 as these West longitides have to be negative
             m.longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '').to_f/-1.0
           end
           # m.save
