@@ -77,6 +77,31 @@ namespace :scrape do
     end
   end
 
+  desc "Fetch additional latitude & longitude data"
+  task :lat_lon_additional => :environment do
+    require 'nokogiri'  
+    require 'open-uri' 
+    docs = []
+    docs << Nokogiri::HTML(open("http://www.nevada-landmarks.com/markerlist.htm"))
+    docs << Nokogiri::HTML(open("http://www.nevada-landmarks.com/markerlist2.htm"))
+    docs.each do |doc|
+      doc.css('table')[1].css('tr')[1..-1].each do |row|
+        unassigned = [ 0, 226, 260, 268, 241 ]
+        num = row.css('td')[0].text.gsub(/[^0-9]/, "").to_i
+        unless unassigned.include?(num)
+          m = Marker.find_by(number: num)
+          m.county = row.css('td')[2].text.gsub(/\A[[:space:]]+|\.*[[:space:]]+\z/, '')
+          unless row.css('td')[0].inner_html.include?('firebrick') 
+            m.latitude = row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '').to_f/1.0
+            m.longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '').to_f/-1.0
+          end
+          # m.save
+          puts "Lat/Lon saved for #{m.title}: [#{m.latitude}, #{m.longitude}]"
+        end
+      end
+    end
+  end
+
   # Write a method to remove the UPCASE text in descriptions left over from scraping.
 
 end
