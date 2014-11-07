@@ -92,7 +92,7 @@ namespace :scrape do
       # Select the table with the marker list
       doc.css('table')[1].css('tr')[1..-1].each do |row|
         # unassigned markers have no info. 0 is here because blank rows show as 0
-        unassigned = [ 0, 226, 260, 268, 241 ]
+        unassigned = [0, 226, 260, 268, 269, 241]
         num = row.css('td')[0].text.gsub(/[^0-9]/, "").to_i
         unless unassigned.include?(num)
           m = Marker.find_by(number: num)
@@ -103,9 +103,13 @@ namespace :scrape do
             m.latitude = row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '').to_f/1.0
             # divide by -1.0 as these West longitides have to be negative
             m.longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '').to_f/-1.0
+            m.latitude = m.latitude.
           end
-          # m.save
-          puts "Lat/Lon saved for #{m.title}: [#{m.latitude}, #{m.longitude}]"
+          puts "-----------------------------------------------"
+          puts "[#{row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '')}, -#{longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '')}]"
+          puts "[#{m.latitude.inspect}, #{m.longitude.inspect}]: Pre-save lat/lon for #{m.title}[#{m.number}]"
+          m.save
+          puts "[#{m.latitude.inspect}, #{m.longitude.inspect}]: Lat/Lon saved for #{m.title}[#{m.number}]"
         end
       end
     end
