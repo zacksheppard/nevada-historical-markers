@@ -105,7 +105,7 @@ namespace :scrape do
             m.longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '').to_f/-1.0
           end
           puts "-----------------------------------------------"
-          puts "[#{row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '')}, -#{longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '')}]"
+          puts "[#{row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '')}, -#{longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '')}]: Cell data in Nokogiri."
           puts "[#{m.latitude.inspect}, #{m.longitude.inspect}]: Pre-save lat/lon for #{m.title}[#{m.number}]"
           m.save
           puts "[#{m.latitude.inspect}, #{m.longitude.inspect}]: Lat/Lon saved for #{m.title}[#{m.number}]"
