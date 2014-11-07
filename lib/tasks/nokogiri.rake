@@ -103,7 +103,6 @@ namespace :scrape do
             m.latitude = row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '').to_f/1.0
             # divide by -1.0 as these West longitides have to be negative
             m.longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '').to_f/-1.0
-            m.latitude = m.latitude.
           end
           puts "-----------------------------------------------"
           puts "[#{row.css('td')[3].text.match(/N\d*\.\d*/).to_s.gsub('N', '')}, -#{longitude = row.css('td')[3].text.match(/W\d*\.\d*/).to_s.gsub('W', '')}]"
