@@ -1,13 +1,15 @@
-<h1>Marker list</h1>
+<div class="container-fluid">
+  <h1>Marker list</h1>
 
-<div class="bootcards-list">
-  <div class="panel panel-default">
-    <div class="list-group">
-    <% @markers.each do |marker| %>
-      <a class="list-group-item" href="/markers/<%= marker.id %>">
-        <h4 class="list-group-item-heading"><%= marker.number %> - <%= marker.title %></h4>
-      </a>
-    <% end %>
+  <div class="bootcards-list">
+    <div class="panel panel-default">
+      <div class="list-group">
+      <% @markers.each do |marker| %>
+        <a class="list-group-item" href="/markers/<%= marker.id %>">
+          <h4 class="list-group-item-heading"><%= marker.number %> - <%= marker.title %></h4>
+        </a>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -5,10 +5,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-html, body {
+html, body, .container-fluid {
   height: 100%;
   min-height: 100%;
 }
+
+body { padding-top: 40px; }
 
 .fill { 
   min-height: 100%;
