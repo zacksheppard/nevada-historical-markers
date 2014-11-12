@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function() {
   L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
-  var map = L.mapbox.map('map', 'zackshp.k0bb3ic6').setView([39.606810, -116.929677], 7);
+  var map = L.mapbox.map('map', 'zackshp.k0bb3ic6').setView([39.606810, -116.929677], 6);
   var myLayer = L.mapbox.featureLayer().addTo(map);
 
   myLayer.on('layeradd', function(e) {
