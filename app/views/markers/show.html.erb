@@ -19,26 +19,17 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
   var map = L.mapbox.map('map', 'zackshp.k0bb3ic6')
     .setView([<%= @marker.latitude %>, <%= @marker.longitude %>], 12);
-
 L.mapbox.featureLayer({
-    // this feature is in the GeoJSON format: see geojson.org
-    // for the full specification
-    type: 'Feature',
-    geometry: {
-        type: 'Point',
-        // coordinates here are in longitude, latitude order because
-        // x, y is the standard for GeoJSON and many formats
-        coordinates: [<%= @marker.longitude %>, <%= @marker.latitude %>]
-    },
-    properties: {
-        title: 'Peregrine Espresso',
-        description: '1718 14th St NW, Washington, DC',
-        // one can customize markers by adding simplestyle properties
-        // https://www.mapbox.com/foundations/an-open-platform/#simplestyle
-        'marker-size': 'large',
-        'marker-color': '#BE9A6B',
-        'marker-symbol': 'circle'
-    }
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [<%= @marker.longitude %>, <%= @marker.latitude %>]
+  },
+  properties: {
+    'marker-size': 'large',
+    'marker-color': '#BE9A6B',
+    'marker-symbol': 'circle'
+  }
 }).addTo(map);
 </script>
 
