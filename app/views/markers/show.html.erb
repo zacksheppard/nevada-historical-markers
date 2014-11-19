@@ -11,33 +11,36 @@
     <div class="panel-footer">
       <small><%= "Marker No. #{@marker.number}" %></small>
     </div>
+    <div id="map">
+    </div>
 </div>
 
 <script>
-$(document).ready(function() {
-  L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
-  var map = L.mapbox.map('map', 'zackshp.k0bb3ic6').setView([<%= @marker.latitude %>, <%= @marker.longitude %>], 7);
-  var myLayer = L.mapbox.featureLayer().addTo(map);
+L.mapbox.accessToken = 'pk.eyJ1IjoiemFja3NocCIsImEiOiIzZ09nMDZZIn0.a_wcJpacq_Sojc5QO_4gww';
+  var map = L.mapbox.map('map', 'zackshp.k0bb3ic6')
+    .setView([<%= @marker.latitude %>, <%= @marker.longitude %>], 12);
 
-  myLayer.on('layeradd', function(e) {
-    var marker, popupContent, properties;
-    marker = e.layer;
-    properties = marker.feature.properties;
-    popupContent = '<div class="popup"><h3><a href="/markers/' + properties.id + '" target="marker">' + properties.name + '</a></h3><p>' + properties.description + '</p><p class="popup-num">Marker No. ' + properties.number + '</p></div>';
-    return marker.bindPopup(popupContent, {
-      closeButton: false,
-      minWidth: 300
-    });
-  });
-
-  $.ajax({
-    dataType: 'text',
-    url: '/markers/<%= @marker.id %>.json',
-    success: function(data) {
-      var geojson;
-      geojson = $.parseJSON(data);
-      return myLayer.setGeoJSON(geojson);
+L.mapbox.featureLayer({
+    // this feature is in the GeoJSON format: see geojson.org
+    // for the full specification
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        // coordinates here are in longitude, latitude order because
+        // x, y is the standard for GeoJSON and many formats
+        coordinates: [<%= @marker.longitude %>, <%= @marker.latitude %>]
+    },
+    properties: {
+        title: 'Peregrine Espresso',
+        description: '1718 14th St NW, Washington, DC',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/foundations/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-color': '#BE9A6B',
+        'marker-symbol': 'circle'
     }
-  });
-});
+}).addTo(map);
 </script>
+
+
+

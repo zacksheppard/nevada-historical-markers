@@ -2,3 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.list-markers a {
+  color: #fff;
+  font-size: 1.1em;
+}
+
+.marker-title {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.list-markers li {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+#map {
+  height: 200px;
+  width: 100%;
+}
