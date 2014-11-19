@@ -23,7 +23,7 @@ class MarkersController < ApplicationController
             description: m.short_desc,
             :'marker-color' => '#00607d',
             :'marker-symbol' => 'circle',
-            :'marker-size' => 'medium'
+            :'marker-size' => 'small'
           }
         }
       end

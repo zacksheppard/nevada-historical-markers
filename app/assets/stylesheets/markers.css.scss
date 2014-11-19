@@ -17,7 +17,10 @@
   padding-bottom: 3px;
 }
 
-#map {
-  height: 200px;
+.map-container {
+  height: 300px;
   width: 100%;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
 }

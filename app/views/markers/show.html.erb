@@ -1,18 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container col-md-offset-2 col-md-8">
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix">
-      <h2 class="text-center marker-title"><%= @marker.title %></h2>
-    </div>
-    <div class="panel-body">
-      <p><%= "#{@marker.description}".html_safe %></p>
-    </div>
-    <div class="panel-footer">
-      <small><%= "Marker No. #{@marker.number}" %></small>
-    </div>
+<div class="container col-md-offset-3 col-md-6">
+  <div class="page-header text-center">
+    <h2 class=" marker-title"><%= @marker.title %></h2>
+    <small><%= "Marker No. #{@marker.number}" %></small>
+  </div>
+  <div class="">
+  </div>
+  <div class="">
+    <p><%= "#{@marker.description}".html_safe %></p>
+  </div>
+  <div class="text-center">
+  </div>
+  <div class="map-container">
     <div id="map">
     </div>
+  </div>
 </div>
 
 <script>
@@ -27,7 +30,7 @@ L.mapbox.featureLayer({
   },
   properties: {
     'marker-size': 'large',
-    'marker-color': '#BE9A6B',
+    'marker-color': '#00607d',
     'marker-symbol': 'circle'
   }
 }).addTo(map);

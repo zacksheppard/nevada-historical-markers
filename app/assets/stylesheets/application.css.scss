@@ -10,7 +10,11 @@ html, body {
   min-height: 100%;
 }
 
-body { padding-top: 40px; }
+body { 
+  padding-top: 40px; 
+  // color: #2B3E50;
+  // background-color: #E8E8E8;
+}
 
 .fill { 
   min-height: 100%;
@@ -18,7 +22,10 @@ body { padding-top: 40px; }
   margin: 0;
 }
 
-
+.navbar-brand {
+  font-family: 'Oswald';
+  letter-spacing: 0.05em;
+}
 
 // Map popup styles
 .leaflet-popup-content-wrapper {

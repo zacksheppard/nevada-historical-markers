@@ -27,7 +27,7 @@ class Marker < ActiveRecord::Base
           description: m.description,
           :'marker-color' => '#00607d',
           :'marker-symbol' => 'circle',
-          :'marker-size' => 'medium'
+          :'marker-size' => 'small'
         }
       }
     end
