@@ -12,8 +12,6 @@ html, body {
 
 body { 
   padding-top: 40px; 
-  // color: #2B3E50;
-  // background-color: #E8E8E8;
 }
 
 .fill { 
@@ -22,57 +20,13 @@ body {
   margin: 0;
 }
 
-.navbar-brand {
-  font-family: 'Oswald';
-  letter-spacing: 0.05em;
-}
-
-// Map popup styles
-.leaflet-popup-content-wrapper {
-  background:#2c3e50;
-  color:#fff;
-  font-size:16px;
-  line-height:24px;
-}
-
-.leaflet-popup-content-wrapper a {
-  color:rgba(255,255,255,0.5);
-}
-
-.leaflet-popup-content-wrapper h3 a {
-  color:rgba(255,255,255,0.5);
-  font-size: 1.1em;
-}
-
-.leaflet-popup-tip-container {
-  width:30px;
-  height:15px;
-}
-
-.leaflet-popup-tip {
-  border-left:15px solid transparent;
-  border-right:15px solid transparent;
-  border-top:15px solid #2c3e50;
-}
-
-
 .navbar {
   margin-bottom: 0px;
   font-size: 16px;
 }
 
-.popup h3 a {
-  color: #ddd;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+.navbar-brand {
+  font-family: 'Oswald';
+  letter-spacing: 0.05em;
 }
 
-.popup-num {
-  color: #aaa;
-  font-size: 0.9em;
-}
-
-.panel-map {
-  z-index: 1000;
-  min-height: 300px;
-  width: 85%;
-}
