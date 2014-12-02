@@ -40,6 +40,8 @@ group :production do
   gem 'pg'
 end
 
+gem 'taps'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
