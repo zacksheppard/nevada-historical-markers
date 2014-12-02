@@ -1,7 +1,7 @@
 ## Nevada State Historical Maker map
 
 ### Viewable on [Heruko](http://nevada-historical-markers.herokuapp.com/) 
-__Note:__ Data in the markers is still a little rough as there wasn't a way to seperate the descriptions so that is still a work in progress. 
+__Note:__ Data in the markers is still a little rough as there wasn't a way to seperate the descriptions when scraping so that is still a work in progress. 
 
 __Related blog post:__ [Removing Leading and Trailing Spaces and &nbsp in Ruby](http://io.zack.io/blog/2014/10/17/removing-leading-and-trailing-spaces-and-and-nbsp-in-ruby/)
 
