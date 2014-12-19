@@ -97,7 +97,6 @@ namespace :scrape do
       marker.location_info = item_data[0]['properties']['location_info']
       marker.office_marker_info = item_data[0]['properties']['office_marker_info']
 
-      binding.pry
       # marker.save
       puts "Marker No. #{marker.number} saved."
     end
