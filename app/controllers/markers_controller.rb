@@ -16,7 +16,7 @@ class MarkersController < ApplicationController
           },
           properties: {
             id: m.id,
-            title: m.title,
+            name: m.title,
             number: m.number,
             description: m.short_desc,
             :'marker-color' => '#00607d',

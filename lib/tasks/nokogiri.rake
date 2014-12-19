@@ -88,7 +88,7 @@ namespace :scrape do
       item_data = JSON.load(open("http://localhost:3000/markers/#{item['properties']['id']}.json"))
 
       marker.number = item['properties']['number']
-      marker.title = item['properties']['title']
+      marker.title = item['properties']['name']
       marker.longitude = item['geometry']['coordinates'][0]
       marker.latitude = item['geometry']['coordinates'][1]
       marker.description = item_data[0]['properties']['description']
