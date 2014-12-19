@@ -83,18 +83,25 @@ namespace :scrape do
     require 'nokogiri'  
     require 'open-uri' 
     data = JSON.load(open("http://localhost:3000/markers.json"))
-    data.each do |marker|
-      marker_data = JSON.load(open("http://localhost:3000/markers/#{marker['properties']['id']}.json"))
+    data.each do |item|
+      marker = Marker.new
+      item_data = JSON.load(open("http://localhost:3000/markers/#{item['properties']['id']}.json"))
 
-      number = marker['properties']['number']
-      title = marker['properties']['title']
-      description = marker_data[0]['properties']['description']
-      official_url = marker_data[0]['properties']['official_url']
-      county = marker_data[0]['properties']['county']
-      location_info = marker_data[0]['properties']['location_info']
+      marker.number = item['properties']['number']
+      marker.title = item['properties']['title']
+      marker.longitude = item['geometry']['coordinates'][0]
+      marker.latitude = item['geometry']['coordinates'][1]
+      marker.description = item_data[0]['properties']['description']
+      marker.official_url = item_data[0]['properties']['official_url']
+      marker.county = item_data[0]['properties']['county']
+      marker.location_info = item_data[0]['properties']['location_info']
+      marker.office_marker_info = item_data[0]['properties']['office_marker_info']
 
       binding.pry
+      # marker.save
+      puts "Marker No. #{marker.number} saved."
     end
+    puts "#{Marker.count} marker URL's saved."
   end
 
   # TO DO

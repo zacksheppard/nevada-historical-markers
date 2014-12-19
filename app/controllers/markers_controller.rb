@@ -16,7 +16,7 @@ class MarkersController < ApplicationController
           },
           properties: {
             id: m.id,
-            name: m.title,
+            title: m.title,
             number: m.number,
             description: m.short_desc,
             :'marker-color' => '#00607d',
@@ -54,6 +54,7 @@ class MarkersController < ApplicationController
           official_url: @marker.official_url,
           county: @marker.county,
           location_info: @marker.location_info,
+          office_marker_info: @marker.office_marker_info,
 
           :'marker-color' => '#00607d',
           :'marker-symbol' => 'circle',
