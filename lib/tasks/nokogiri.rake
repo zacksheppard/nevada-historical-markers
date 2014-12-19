@@ -82,10 +82,10 @@ namespace :scrape do
   task :dev_db => :environment do
     require 'nokogiri'  
     require 'open-uri' 
-    data = JSON.load(open("http://localhost:3000/markers.json"))
+    data = JSON.load(open("https://lrrnhmkgcc.localtunnel.me/markers.json"))
     data.each do |item|
       marker = Marker.new
-      item_data = JSON.load(open("http://localhost:3000/markers/#{item['properties']['id']}.json"))
+      item_data = JSON.load(open("https://lrrnhmkgcc.localtunnel.me/markers/#{item['properties']['id']}.json"))
 
       marker.number = item['properties']['number']
       marker.title = item['properties']['name']
