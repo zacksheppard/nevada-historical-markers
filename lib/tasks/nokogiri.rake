@@ -117,3 +117,14 @@ namespace :scrape do
   # Write a method to remove the UPCASE text in descriptions left over from scraping.
 
 end
+
+desc "Set default text for empty descriptions"
+task :fill_empty_desc => :environment do
+  Marker.all.each do |m| 
+    m.description = "(Official text not available)" if m.description == ""
+    m.save
+  end
+end
+
+# "(Official data not available)"
+
