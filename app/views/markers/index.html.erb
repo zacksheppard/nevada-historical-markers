@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Marker list</h1>
     <ul class="list-group list-markers">
-      <% @markers.each do |marker| %>
+      <% @markers.sort.each do |marker| %>
         <li class="list-group-item"><a href="/markers/<%= marker.id %>">
           <%= marker.number %> - <%= marker.title %>
         </a></li>
