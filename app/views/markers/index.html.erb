@@ -3,7 +3,7 @@
     <ul class="list-group list-markers">
       <% @markers.sort.each do |marker| %>
         <li class="list-group-item"><a href="/markers/<%= marker.id %>">
-          <%= marker.number %> - <%= marker.title %>
+          #<%= marker.number %>: <%= marker.title %>
         </a></li>
       <% end %>
     </ul>
