@@ -77,6 +77,32 @@ namespace :scrape do
     end
   end
 
+  desc "Fetch data from dev DB"
+  # with http://localtunnel.me/
+  task :dev_db => :environment do
+    require 'nokogiri'  
+    require 'open-uri' 
+    data = JSON.load(open("https://lrrnhmkgcc.localtunnel.me/markers.json"))
+    data.each do |item|
+      marker = Marker.new
+      item_data = JSON.load(open("https://lrrnhmkgcc.localtunnel.me/markers/#{item['properties']['id']}.json"))
+
+      marker.number = item['properties']['number']
+      marker.title = item['properties']['name']
+      marker.longitude = item['geometry']['coordinates'][0]
+      marker.latitude = item['geometry']['coordinates'][1]
+      marker.description = item_data[0]['properties']['description']
+      marker.official_url = item_data[0]['properties']['official_url']
+      marker.county = item_data[0]['properties']['county']
+      marker.location_info = item_data[0]['properties']['location_info']
+      marker.office_marker_info = item_data[0]['properties']['office_marker_info']
+
+      marker.save
+      puts "Marker No. #{marker.number} saved."
+    end
+    puts "#{Marker.count} marker URL's saved."
+  end
+
   # TO DO
   # Some markers are saving with blank lat/lon
   # some are saving with too many decimal places 

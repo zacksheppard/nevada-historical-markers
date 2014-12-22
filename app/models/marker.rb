@@ -9,31 +9,33 @@ class Marker < ActiveRecord::Base
     end
   end
 
-  def self.to_json
-    @markers = Marker.all
-    @geojson = []
-    
-    @markers.each do |m|
-      @geojson << {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [m.latitude, m.longitude]
-        },
-        properties: {
-          id: m.id,
-          name: m.title,
-          number: m.number,
-          description: m.description,
-          :'marker-color' => '#00607d',
-          :'marker-symbol' => 'circle',
-          :'marker-size' => 'small'
-        }
-      }
-    end
-  end
 
-  def to_json
+
+  # def self.to_geojson
+  #   @markers = Marker.all
+  #   @geojson = []
+    
+  #   @markers.each do |m|
+  #     @geojson << {
+  #       type: 'Feature',
+  #       geometry: {
+  #         type: 'Point',
+  #         coordinates: [m.latitude, m.longitude]
+  #       },
+  #       properties: {
+  #         id: m.id,
+  #         name: m.title,
+  #         number: m.number,
+  #         description: m.description,
+  #         :'marker-color' => '#00607d',
+  #         :'marker-symbol' => 'circle',
+  #         :'marker-size' => 'small'
+  #       }
+  #     }
+  #   end
+  # end
+
+  def to_geojson
     @geojson = []
     @geojson << {
       type: 'Feature',

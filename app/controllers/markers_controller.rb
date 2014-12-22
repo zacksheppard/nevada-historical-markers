@@ -1,13 +1,11 @@
 class MarkersController < ApplicationController
   before_action :set_marker, only: [:show, :edit, :update, :destroy]
 
-  # GET /markers
-  # GET /markers.csv
-  # GET /markers.json
+
   def index
     @markers = Marker.all
+
     @geojson = []
-    
     @markers.each do |m|
       if m.latitude 
         @geojson << {
@@ -39,8 +37,8 @@ class MarkersController < ApplicationController
   # GET /markers/1.json
   def show
     @marker = Marker.find(params[:id])
+
     @geojson = []
-    
     # @markers.each do |m|
       @geojson << {
         type: 'Feature',
@@ -53,6 +51,11 @@ class MarkersController < ApplicationController
           name: @marker.title,
           number: @marker.number,
           description: @marker.description,
+          official_url: @marker.official_url,
+          county: @marker.county,
+          location_info: @marker.location_info,
+          office_marker_info: @marker.office_marker_info,
+
           :'marker-color' => '#00607d',
           :'marker-symbol' => 'circle',
           :'marker-size' => 'medium'
