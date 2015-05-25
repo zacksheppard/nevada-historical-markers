@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get '/about', to: 'about#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
